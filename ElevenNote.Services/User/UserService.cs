@@ -28,7 +28,7 @@ namespace ElevenNote.Services.User
                 Username = model.Username,
                 DateCreated = DateTime.Now
             };
-            // 
+            // Password Hasher
             var passwordHasher = new PasswordHasher<UserEntity>();
             entity.Password = passwordHasher.HashPassword(entity, model.Password);
 
@@ -36,6 +36,25 @@ namespace ElevenNote.Services.User
             int numberOfChanges = await _context.SaveChangesAsync();
 
             return numberOfChanges == 1;
+        }
+
+        public async Task<UserDetail?> GetUserByIdAsync(int userId)
+        {
+            var entity = await _context.Users.FindAsync(userId);
+            if (entity is null)
+                return null;
+
+            UserDetail detail = new()
+            {
+                Id = entity.Id,
+                Email = entity.Email,
+                Username = entity.Username,
+                FirstName = entity.FirstName,
+                LastName = entity.LastName,
+                DateCreated = entity.DateCreated
+            };
+
+            return detail;
         }
 
         // Attempt to get a user by the given email
