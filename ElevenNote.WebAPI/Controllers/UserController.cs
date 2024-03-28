@@ -25,6 +25,19 @@ namespace MyApp.Namespace
 
             return BadRequest("User could not be registered.");
         }
+        
+        [HttpGet("{userId:int}")]
+        public async Task<IActionResult> GetById([FormRoute] int userId)
+        {
+            var userDetail = await _userService.GetUserByIdAsync(userId);
+
+            if (userDetail is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(userDetail);
+        }
         private readonly IUserService _userService;
         public UserController(IUserService userService)
         {
