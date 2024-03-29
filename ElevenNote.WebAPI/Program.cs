@@ -28,6 +28,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// Adds AuthenticationMiddleware to the IApplicationBuilder
+// This enables authentication capabilities
+app.UseAuthentication();
+
+app.UseAuthorization();
+
 app.UseHttpsRedirection();
 app.MapControllers();
 

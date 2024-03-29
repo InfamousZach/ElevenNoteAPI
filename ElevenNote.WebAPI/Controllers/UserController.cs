@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ElevenNote.Services.User;
 using ElevenNote.Models.User;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MyApp.Namespace
 {
@@ -26,8 +27,9 @@ namespace MyApp.Namespace
             return BadRequest("User could not be registered.");
         }
         
+        [Authorize]
         [HttpGet("{userId:int}")]
-        public async Task<IActionResult> GetById([FormRoute] int userId)
+        public async Task<IActionResult> GetById([FromRoute] int userId)
         {
             var userDetail = await _userService.GetUserByIdAsync(userId);
 
