@@ -13,5 +13,13 @@ namespace ElevenNote.Data
         : base(options) { }
 
         public DbSet<UserEntity> Users { get; set; } = null!;
+        public DbSet<NoteEntity> Notes { get; set; } = null!;
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<NoteEntity>()
+                .HasOne(n => n.Owner)
+                .WithMany(p => p.Notes)
+                .HasForeignKey(n => n.OwnerId);
+        }
     }
 }
