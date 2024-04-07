@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using ElevenNote.Services.Token;
 using Microsoft.OpenApi.Models;
 using ElevenNote.Services.Note;
+using ElevenNote.Models.Maps;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -69,6 +70,8 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
+
+builder.Services.AddAutoMapper(typeof(NoteMapProfile));
 
 var app = builder.Build();
 
